@@ -637,3 +637,6 @@ body.en-portada #barra { display: none; }
 .gu-cta-b { display: flex; flex-wrap: wrap; gap: .7em; }
 .gu-cta .mk-escritorio { margin: 0; padding: .8em 1.4em; border-radius: .9em; border-color: #fff; background: transparent; color: #fff; }
 .gu-cta .mk-escritorio:hover { background: rgb(255 255 255 / .16); }
+
+/* Video local de la app de escritorio: ocupa el mismo lugar que el de YouTube */
+#vlocal { position: absolute; inset: 0; width: 100%; height: 100%; background: #000; object-fit: contain; pointer-events: none; }

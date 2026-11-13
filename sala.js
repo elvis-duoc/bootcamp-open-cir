@@ -29,8 +29,26 @@ const youtube = {
   cargar(id, t) { this.cargado = id; this._t = t; this.cargando = true; this.p.loadVideoById({ videoId: id, startSeconds: t }); },
   yaCargo() { if (!this.cargando) return; this.cargando = false; this._hasta = performance.now() + 500; this.p.seekTo(this._t, true); },
 };
+// Video local (app de escritorio, sin internet): un <video> con el archivo de la carpeta «videos» junto al programa.
+// Si el archivo dura menos que las misiones (por ejemplo, un video de prueba), sus tiempos se reparten a lo largo del archivo.
+const local = {
+  nombre: "local", v: null, src: "", total: 0, escala: 1, _t: 0, _on: false,
+  el() { if (!this.v) { const v = document.createElement("video"); v.id = "vlocal"; v.playsInline = true; v.preload = "auto"; v.addEventListener("loadedmetadata", () => this.ajustar()); v.addEventListener("error", () => { this.fallo = true; if (P !== local) return; const t = this._t, on = this._on; usar(ensayo); $("#demo-t").textContent = `Falta el video ${decodeURIComponent(this.src)}`; ensayo.seek(t); if (on) ensayo.play(); }); $("#vid").insertBefore(v, $("#capa-clic")); this.v = v; } return this.v; },
+  cargar(src, total) {
+    const v = this.el(); this.total = total; this.fallo = false;
+    if (this.src !== src) { this.src = src; this.escala = 1; v.src = src; } else this.ajustar();
+  },
+  ajustar() { const d = this.v.duration; this.escala = d && this.total && d < this.total - 1 ? d / this.total : 1; this.seek(this._t); if (this._on) this.v.play().catch(() => { this._on = false; }); },
+  time() { return this.v && this.v.readyState ? this.v.currentTime / this.escala : this._t; },
+  seek(t) { this._t = t; if (this.v && this.v.readyState) this.v.currentTime = Math.min(t * this.escala, Math.max(0, this.v.duration - .05)); },
+  play() { this._on = true; this.v?.play().catch(() => { this._on = false; }); },
+  pause() { this._t = this.time(); this._on = false; this.v?.pause(); },
+  playing() { return this._on; },
+  acabo() { return !!this.v?.ended; },
+};
+const enEscritorio = !!window.bootcampEscritorio; // Lo define la app de escritorio (preload.cjs)
 let P = ensayo, apiPedida = false, sinYT = false, videoId = null;
-function usar(r) { P = r; $("#yt").hidden = r !== youtube; $("#demo").hidden = r !== ensayo; $("#b-cc").hidden = r !== youtube; }
+function usar(r) { P = r; $("#yt").hidden = r !== youtube; $("#demo").hidden = r !== ensayo; $("#b-cc").hidden = r !== youtube; if (local.v) { local.v.hidden = r !== local; if (r !== local) local.v.pause(); } }
 
 // ---------- Subtítulos: parten apagados y se prenden con el botón CC ----------
 // YouTube los muestra solo si el video o el navegador lo piden; se controla cargando o quitando su módulo de subtítulos.
@@ -90,6 +108,11 @@ function pedirApi() {
   setTimeout(() => { if (!youtube.listo) sinYoutube(); }, 12000);
 }
 // Deja listo el video de la tecnología. Las tecnologías sin enlace usan el video de ensayo.
+// En la app de escritorio cada tecnología usa su video local (videoLocal en datos.js); en la web, YouTube.
+function prepararVideoLocal(tec, desde) {
+  const total = Math.max(...D.misiones.filter(m => m.tec === tec.id).map(m => seg(m.fin)));
+  local.cargar(tec.videoLocal, total); local._t = desde; usar(local);
+}
 function prepararVideo(url, desde) {
   videoId = String(url || "").match(/(?:v=|youtu\.be\/|embed\/)([\w-]{11})/)?.[1] || null;
   if (!videoId || sinYT || location.protocol === "file:") { usar(ensayo); return; }
@@ -105,7 +128,7 @@ function abrirMision(i) {
   const eq = equipo(), m = D.misiones[i], st = estadoMision(eq, i), ini = seg(m.ini), fin = seg(m.fin), tec = tecDe(m.tec);
   // Si ya la terminaron, se repite desde el principio. Si no, sigue donde iba.
   const desde = st.hecha ? ini : Math.max(ini, Math.min(st.t || ini, fin));
-  prepararVideo(tec.youtube, desde);
+  if (enEscritorio && tec.videoLocal) prepararVideoLocal(tec, desde); else prepararVideo(tec.youtube, desde);
   S = { i, m, ini, fin, terminada: false, guardado: performance.now() };
   $("#sala").hidden = false; document.body.classList.add("en-sala");
   // Título: «Tecnología - frase de la estación» (los mismos textos de su tarjeta en la portada). Las estaciones dentro de otra usan el nombre de la principal.
