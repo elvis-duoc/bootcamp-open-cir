@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 480">
+  <circle cx="240" cy="240" r="240" fill="#E4E6F2"/>
+  <g fill="none" stroke="#2B3B9A" stroke-width="13" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M152 92h128l64 64v212a18 18 0 0 1-18 18H152a18 18 0 0 1-18-18V110a18 18 0 0 1 18-18Z"/>
+    <path d="M280 92v64h64"/>
+  </g>
+  <path d="M238 196l56 30-56 30-56-30Z" fill="#29A6E1"/>
+  <path d="M182 226l56 30v64l-56-30Z" fill="#4285CC"/>
+  <path d="M294 226l-56 30v64l56-30Z" fill="#2B3B9A"/>
+  <g transform="rotate(45 330 330)">
+    <g stroke="#E4E6F2" stroke-width="14" stroke-linejoin="round">
+      <rect x="306" y="214" width="48" height="150" rx="6" fill="#4285CC"/>
+    </g>
+    <rect x="306" y="214" width="48" height="150" rx="6" fill="#4285CC"/>
+    <rect x="306" y="214" width="48" height="30" rx="6" fill="#29A6E1"/>
+    <path d="M306 364h48l-24 42Z" fill="#2B3B9A"/>
+  </g>
+</svg>

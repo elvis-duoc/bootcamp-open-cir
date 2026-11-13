@@ -1,0 +1,77 @@
+<svg class="cgfx__sensor-ir-obstacle" xmlns="http://www.w3.org/2000/svg" viewBox="-28 -186 56 187" width="56" height="187" style="fill: rgb(0, 0, 0); stroke: none; font-family: Arial, Helvetica, sans-serif;">
+ <defs>
+  <linearGradient id="__PREFIX__pin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d939b"/><stop offset=".45" stop-color="#f2f4f6"/><stop offset="1" stop-color="#7d838b"/></linearGradient>
+  <linearGradient id="__PREFIX__pcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2463b8"/><stop offset="1" stop-color="#173f80"/></linearGradient>
+  <linearGradient id="__PREFIX__clear" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cfd6dc"/><stop offset=".35" stop-color="#fbfcfd"/><stop offset=".7" stop-color="#e6ebef"/><stop offset="1" stop-color="#b9c2ca"/></linearGradient>
+  <linearGradient id="__PREFIX__black" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#050505"/><stop offset=".35" stop-color="#3a3a3a"/><stop offset=".6" stop-color="#151515"/><stop offset="1" stop-color="#000"/></linearGradient>
+  <linearGradient id="__PREFIX__pot" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f8fe0"/><stop offset="1" stop-color="#1f62b8"/></linearGradient>
+ </defs>
+ <g class="cgfx__wireview">
+  <!-- Header pins: OUT, GND and VCC at 2.54 mm -->
+  <g class="cgfx__legs">
+   <rect x="-11.2" y="-24" width="2.4" height="24" rx=".6" fill="url(#__PREFIX__pin)"/>
+   <rect x="-1.2" y="-24" width="2.4" height="24" rx=".6" fill="url(#__PREFIX__pin)"/>
+   <rect x="8.8" y="-24" width="2.4" height="24" rx=".6" fill="url(#__PREFIX__pin)"/>
+  </g>
+  <!-- LED and photodiode legs, from the pads up to the bodies -->
+  <g stroke="#b9bfc6" stroke-width="1.3" fill="none" stroke-linecap="round">
+   <path d="M-19,-133V-150"/><path d="M-9,-133V-150"/><path d="M9,-133V-150"/><path d="M19,-133V-150"/>
+  </g>
+  <!-- Blue module board -->
+  <rect x="-27" y="-140" width="54" height="114" rx="1.6" fill="url(#__PREFIX__pcb)" stroke="#123266" stroke-width=".6"/>
+  <g fill="#c9d3dd"><rect x="-22" y="-136" width="6" height="6"/><rect x="-12" y="-136" width="6" height="6"/><rect x="6" y="-136" width="6" height="6"/><rect x="16" y="-136" width="6" height="6"/></g>
+  <g fill="#3a4651"><circle cx="-19" cy="-133" r="1.4"/><circle cx="-9" cy="-133" r="1.4"/><circle cx="9" cy="-133" r="1.4"/><circle cx="19" cy="-133" r="1.4"/></g>
+  <path d="M-23,-128H-5M5,-128H23" stroke="#d7e2ee" stroke-width=".5"/>
+  <!-- 101 / 103 / 103 resistors and two capacitors -->
+  <g>
+   <rect x="-24" y="-123" width="7" height="9" rx=".5" fill="#c9d3dd"/><rect x="-23" y="-121.5" width="5" height="6" fill="#1a1a1a"/>
+   <rect x="-15" y="-123" width="7" height="9" rx=".5" fill="#c9d3dd"/><rect x="-14" y="-121.5" width="5" height="6" fill="#1a1a1a"/>
+   <rect x="-6" y="-123" width="7" height="9" rx=".5" fill="#c9d3dd"/><rect x="-5" y="-121.5" width="5" height="6" fill="#1a1a1a"/>
+   <rect x="4" y="-123" width="7" height="9" rx="1" fill="#c9d3dd"/><rect x="5" y="-121.5" width="5" height="6" rx=".6" fill="#b88a5a"/>
+   <rect x="14" y="-123" width="7" height="9" rx="1" fill="#c9d3dd"/><rect x="15" y="-121.5" width="5" height="6" rx=".6" fill="#b88a5a"/>
+   <g fill="#e8e8e8" font-size="2.2" text-anchor="middle"><text x="-20.5" y="-117.6">101</text><text x="-11.5" y="-117.6">103</text><text x="-2.5" y="-117.6">103</text></g>
+  </g>
+  <!-- LM393 comparator (SOIC-8) -->
+  <g fill="#c4c9cf"><rect x="-22.5" y="-110" width="1.4" height="3"/><rect x="-18.5" y="-110" width="1.4" height="3"/><rect x="-14.5" y="-110" width="1.4" height="3"/><rect x="-10.5" y="-110" width="1.4" height="3"/><rect x="-22.5" y="-91" width="1.4" height="3"/><rect x="-18.5" y="-91" width="1.4" height="3"/><rect x="-14.5" y="-91" width="1.4" height="3"/><rect x="-10.5" y="-91" width="1.4" height="3"/></g>
+  <rect x="-24" y="-107" width="16" height="16" rx=".8" fill="#1d1f22"/>
+  <circle cx="-21.5" cy="-104.5" r=".9" fill="#3c4046"/>
+  <text x="-16" y="-98" fill="#8d939b" font-size="2.6" text-anchor="middle">LM393</text>
+  <!-- Blue 3362 trimmer: sets how far the sensor detects -->
+  <rect x="-2" y="-110" width="25" height="24" rx="1.2" fill="url(#__PREFIX__pot)" stroke="#164a8e" stroke-width=".6"/>
+  <g class="cgfx__potknob" transform="translate(9.5 -98)">
+   <circle r="7.2" fill="#f2f4f6" stroke="#b9c2ca" stroke-width=".6"/>
+   <path d="M-5,0H5M0,-5V5" stroke="#5b6670" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+  <text x="20.5" y="-99" fill="#dbe8f6" font-size="2.6" text-anchor="middle" transform="rotate(-90 20.5 -99)">3362</text>
+  <!-- 102 / 201 resistors -->
+  <rect x="-15" y="-81" width="9" height="6" rx=".5" fill="#c9d3dd"/><rect x="-13.5" y="-80" width="6" height="4" fill="#1a1a1a"/>
+  <rect x="6" y="-81" width="9" height="6" rx=".5" fill="#c9d3dd"/><rect x="7.5" y="-80" width="6" height="4" fill="#1a1a1a"/>
+  <g fill="#e8e8e8" font-size="2.1" text-anchor="middle"><text x="-10.5" y="-77.2">102</text><text x="10.5" y="-77.2">201</text></g>
+  <!-- Indicator LEDs: obstacle (left, output) and power (right) -->
+  <rect x="-20" y="-69" width="7" height="9" rx=".6" fill="#e9edf1"/><rect x="-18.6" y="-67" width="4.2" height="5" rx=".5" fill="#2f5a3a" class="cgfx__ledsignal"/>
+  <rect x="13" y="-69" width="7" height="9" rx=".6" fill="#e9edf1"/><rect x="14.4" y="-67" width="4.2" height="5" rx=".5" fill="#5a2a2a" class="cgfx__powerled"/>
+  <!-- Mounting hole -->
+  <circle cx="0" cy="-64" r="5.6" fill="#d6dce2"/><circle cx="0" cy="-64" r="4.2" fill="#f4f5f6"/>
+  <g fill="#f4f4f4" font-weight="700">
+   <text x="-23.5" y="-58" font-size="3.2" transform="rotate(90 -23.5 -58)">输出指示</text>
+   <text x="23.5" y="-72" font-size="3.2" transform="rotate(90 23.5 -72)">电源指示</text>
+   <text x="-17" y="-51" font-size="4">+</text><text x="14.5" y="-51" font-size="4">+</text>
+   <text x="0" y="-44" font-size="4.8" text-anchor="middle" letter-spacing="-.1">OUTGNDVCC</text>
+   <text x="24.5" y="-46" font-size="3.4" transform="rotate(90 24.5 -46)">MH-B</text>
+  </g>
+  <rect x="-14" y="-32" width="28" height="9" rx="1" fill="#1a1a1a"/>
+  <rect x="-14" y="-32" width="28" height="1.6" rx=".8" fill="#3a3a3a"/>
+  <!-- IR emitter (clear) and receiver photodiode (black) -->
+  <g>
+   <rect x="-24.5" y="-152" width="21" height="4" rx="1" fill="#d7dde2"/>
+   <path d="M-23.5,-150V-174a9.5,9.5 0 0 1 19,0V-150z" fill="url(#__PREFIX__clear)" stroke="#aab4bd" stroke-width=".5"/>
+   <path d="M-17,-151V-163l3,-2l3,2V-151" fill="none" stroke="#9aa3ab" stroke-width=".9"/>
+   <rect x="-20.5" y="-178" width="2.4" height="18" rx="1.2" fill="#ffffff" opacity=".8"/>
+   <rect x="3.5" y="-152" width="21" height="4" rx="1" fill="#111"/>
+   <path d="M4.5,-150V-174a9.5,9.5 0 0 1 19,0V-150z" fill="url(#__PREFIX__black)"/>
+   <rect x="7.5" y="-178" width="2.2" height="18" rx="1.1" fill="#8a8a8a" opacity=".55"/>
+  </g>
+  <path class="cgfx__hitarea" style="fill: rgb(255, 0, 0); display: inline; opacity: 0; pointer-events: all;" d="M-27,-140h54v116h-54z M-14,-32h28v32h-28z M-24.5,-184h49v36h-49z"/>
+  <path class="cgfx__selected" display="none" fill="none" stroke="#009cda" stroke-width="2" stroke-linejoin="round" d="M-29,-142h58v118h-58z M-26,-185h52v38h-52z" style="display: none; pointer-events: none;"/>
+ </g>
+</svg>

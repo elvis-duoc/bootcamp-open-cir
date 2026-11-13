@@ -1,0 +1,52 @@
+<svg class="cgfx__sensor-water-level" xmlns="http://www.w3.org/2000/svg" viewBox="-42 -252 84 253" width="84" height="253" style="fill: rgb(0, 0, 0); stroke: none; font-family: Arial, Helvetica, sans-serif;">
+ <defs>
+  <linearGradient id="__PREFIX__pin" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8d939b"/><stop offset=".45" stop-color="#f2f4f6"/><stop offset="1" stop-color="#7d838b"/></linearGradient>
+  <linearGradient id="__PREFIX__pcb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0342a"/><stop offset="1" stop-color="#c81c14"/></linearGradient>
+  <linearGradient id="__PREFIX__trace" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9c4c4"/><stop offset=".5" stop-color="#f4f1f1"/><stop offset="1" stop-color="#bcb6b6"/></linearGradient>
+  <linearGradient id="__PREFIX__water" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7cc8ff" stop-opacity=".55"/><stop offset="1" stop-color="#2f8fe0" stop-opacity=".45"/></linearGradient>
+  <clipPath id="__PREFIX__strip"><rect x="-32" y="-250" width="64" height="152" rx="3"/></clipPath>
+ </defs>
+ <g class="cgfx__wireview">
+  <!-- Header pins: − (GND), + (VCC) and S (signal) -->
+  <g>
+   <rect x="-11.2" y="-24" width="2.4" height="24" rx=".6" fill="url(#__PREFIX__pin)"/>
+   <rect x="-1.2" y="-24" width="2.4" height="24" rx=".6" fill="url(#__PREFIX__pin)"/>
+   <rect x="8.8" y="-24" width="2.4" height="24" rx=".6" fill="url(#__PREFIX__pin)"/>
+  </g>
+  <!-- Red board: the long sensing strip and the wider base with its mounting holes -->
+  <path d="M-29,-250H29a3,3 0 0 1 3,3V-92L40,-84V-28a6,6 0 0 1 -6,6H-34a6,6 0 0 1 -6,-6V-84L-32,-92V-247a3,3 0 0 1 3,-3z" fill="url(#__PREFIX__pcb)" stroke="#9e140d" stroke-width=".8"/>
+  <circle cx="-30" cy="-34" r="5.2" fill="#e9b3ad"/><circle cx="-30" cy="-34" r="3.8" fill="#f4f5f6"/>
+  <circle cx="30" cy="-34" r="5.2" fill="#e9b3ad"/><circle cx="30" cy="-34" r="3.8" fill="#f4f5f6"/>
+  <!-- Ten parallel traces: five to + and five to the transistor base; water bridges them -->
+  <g fill="url(#__PREFIX__trace)">
+   <rect x="-28.2" y="-246" width="2.4" height="144" rx="1.2"/><rect x="-22.2" y="-246" width="2.4" height="144" rx="1.2"/>
+   <rect x="-16.2" y="-246" width="2.4" height="144" rx="1.2"/><rect x="-10.2" y="-246" width="2.4" height="144" rx="1.2"/>
+   <rect x="-4.2" y="-246" width="2.4" height="144" rx="1.2"/><rect x="1.8" y="-246" width="2.4" height="144" rx="1.2"/>
+   <rect x="7.8" y="-246" width="2.4" height="144" rx="1.2"/><rect x="13.8" y="-246" width="2.4" height="144" rx="1.2"/>
+   <rect x="19.8" y="-246" width="2.4" height="144" rx="1.2"/><rect x="25.8" y="-246" width="2.4" height="144" rx="1.2"/>
+  </g>
+  <g fill="#f4f1f1" stroke="#b3aaaa" stroke-width=".5">
+   <circle cx="-27" cy="-99" r="2"/><circle cx="-15" cy="-96" r="2"/><circle cx="-3" cy="-93" r="2"/><circle cx="9" cy="-90" r="2"/><circle cx="21" cy="-87" r="2"/>
+   <circle cx="-21" cy="-99" r="2"/><circle cx="-9" cy="-99" r="2"/><circle cx="3" cy="-99" r="2"/><circle cx="15" cy="-99" r="2"/><circle cx="27" cy="-99" r="2"/>
+  </g>
+  <!-- Water over the strip, from the bottom of the traces up to the level set in the simulation -->
+  <g clip-path="url(#__PREFIX__strip)">
+   <rect class="cgfx__water" x="-34" y="-100" width="68" height="0" fill="url(#__PREFIX__water)"/>
+   <path class="cgfx__watersurface" d="M-34,0 q8.5,-2.5 17,0 t17,0 t17,0 t17,0" fill="none" stroke="#d8f0ff" stroke-width="1.2" display="none"/>
+  </g>
+  <!-- S8050 transistor, resistors and the power LED -->
+  <g fill="#c4c9cf"><rect x="5.3" y="-71" width="1.4" height="3"/><rect x="11.3" y="-71" width="1.4" height="3"/><rect x="8.3" y="-58" width="1.4" height="3"/></g>
+  <rect x="3.5" y="-68" width="11" height="10" rx=".8" fill="#1d1f22"/>
+  <rect x="-20" y="-74" width="9" height="5" fill="#d9d4c7"/><rect x="-18.4" y="-74" width="5.8" height="5" fill="#1a1a1a"/>
+  <rect x="-20" y="-64" width="9" height="5" fill="#d9d4c7"/><rect x="-18.4" y="-64" width="5.8" height="5" fill="#1a1a1a"/>
+  <rect x="18" y="-74" width="9" height="5" fill="#d9d4c7"/><rect x="19.6" y="-74" width="5.8" height="5" fill="#1a1a1a"/>
+  <rect x="-22" y="-54" width="7" height="5" rx=".6" fill="#f2f2f2"/><rect x="-20.6" y="-53.2" width="4.2" height="3.4" rx=".5" fill="#6b2222" class="cgfx__powerled"/>
+  <rect x="-15" y="-31" width="30" height="9" rx="1" fill="#1a1a1a"/><rect x="-15" y="-31" width="30" height="1.6" rx=".8" fill="#3a3a3a"/>
+  <g fill="#ffffff" font-weight="700" text-anchor="middle">
+   <text x="-27" y="-60" font-size="4.2" transform="rotate(-90 -27 -60)">Power</text>
+   <text x="-10" y="-36" font-size="6">−</text><text x="0" y="-36" font-size="6">+</text><text x="10" y="-36" font-size="6">S</text>
+  </g>
+  <path class="cgfx__hitarea" style="fill: rgb(255, 0, 0); display: inline; opacity: 0; pointer-events: all;" d="M-32,-250h64v158h-64z M-40,-92h80v70h-80z M-15,-24h30v24h-30z"/>
+  <path class="cgfx__selected" display="none" fill="none" stroke="#009cda" stroke-width="2" stroke-linejoin="round" d="M-34,-252H34V-93L42,-85V-20H-42V-85L-34,-93z" style="display: none; pointer-events: none;"/>
+ </g>
+</svg>

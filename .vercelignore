@@ -1,0 +1,4 @@
+# Lo que no se publica en Vercel (solo sirve en el repositorio o en este computador)
+.github/
+scripts/
+README.md

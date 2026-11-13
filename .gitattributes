@@ -1,0 +1,8 @@
+# Texto con saltos de línea normalizados; imágenes, fuentes y firmware como binarios
+* text=auto
+*.bat text eol=crlf
+*.webp binary
+*.png binary
+*.jpg binary
+*.woff2 binary
+*.hex text eol=lf

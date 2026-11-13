@@ -1,0 +1,12 @@
+# Vercel (se crea al vincular el proyecto con la CLI)
+.vercel/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# La app de escritorio no va al repositorio: el instalador supera el límite de 100 MB de GitHub (ver README)
+*.exe
+*.zip
+app-escritorio/

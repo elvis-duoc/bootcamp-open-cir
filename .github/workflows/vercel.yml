@@ -1,0 +1,82 @@
+# CI/CD: en cada cambio revisa que el sitio esté completo y lo publica en Vercel.
+#  · push a main        → verificación + publicación en producción
+#  · pull request       → verificación + publicación de vista previa (con su propio enlace)
+#  · manual (Actions)   → igual que un push a main
+# Necesita 3 secretos en GitHub (Settings → Secrets and variables → Actions): VERCEL_TOKEN, VERCEL_ORG_ID y VERCEL_PROJECT_ID.
+# Mientras no estén, solo corre la verificación. Pasos para obtenerlos: README.md.
+name: Verificar y publicar en Vercel
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  verificar:
+    name: Verificar el sitio
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/verificar.mjs
+
+  publicar:
+    name: Publicar en Vercel
+    needs: verificar
+    runs-on: ubuntu-latest
+    # Los pull requests desde forks no tienen acceso a los secretos
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    environment:
+      name: ${{ github.event_name == 'pull_request' && 'Preview' || 'Production' }}
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+      - name: ¿Hay secretos de Vercel?
+        id: secretos
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::warning::Faltan los secretos de Vercel: se verificó el sitio pero no se publicó (ver README.md)."
+            echo "listo=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "listo=si" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.secretos.outputs.listo == 'si'
+      - uses: actions/setup-node@v4
+        if: steps.secretos.outputs.listo == 'si'
+        with:
+          node-version: 20
+      - name: Publicar
+        id: deploy
+        if: steps.secretos.outputs.listo == 'si'
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DESTINO: ${{ github.event_name == 'pull_request' && 'preview' || 'production' }}
+        run: |
+          npm install --global vercel@39.1.1
+          if [ "$DESTINO" = "production" ]; then
+            vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+            vercel build --prod --token="$VERCEL_TOKEN"
+            url=$(vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN")
+          else
+            vercel pull --yes --environment=preview --token="$VERCEL_TOKEN"
+            vercel build --token="$VERCEL_TOKEN"
+            url=$(vercel deploy --prebuilt --token="$VERCEL_TOKEN")
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "Publicado en: $url" >> "$GITHUB_STEP_SUMMARY"

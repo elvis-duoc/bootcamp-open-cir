@@ -1,0 +1,479 @@
+{
+  "formatVersion": 1,
+  "name": "LCD · servo · NeoPixel · I2C · ultrasonic",
+  "parts": [
+    {
+      "id": "U1",
+      "type": "132521",
+      "x": 200,
+      "y": 300,
+      "angle": 0,
+      "props": {
+        "name": "Arduino Uno R3"
+      }
+    },
+    {
+      "id": "LCD1",
+      "type": "113878",
+      "x": 60,
+      "y": 70,
+      "angle": 0,
+      "props": {
+        "name": "LCD 16 x 2",
+        "address": 39
+      }
+    },
+    {
+      "id": "LCD2",
+      "type": "displayLCD16x2I2C",
+      "x": 420,
+      "y": 70,
+      "angle": 0,
+      "props": {
+        "name": "LCD 16 x 2 (I2C)",
+        "address": 39
+      }
+    },
+    {
+      "id": "SERVO1",
+      "type": "142073",
+      "x": 820,
+      "y": 80,
+      "angle": 0,
+      "props": {
+        "name": "Micro Servo",
+        "angle": 90
+      }
+    },
+    {
+      "id": "PIXELS1",
+      "type": "neopixel_strip_4",
+      "x": 730,
+      "y": 300,
+      "angle": 0,
+      "props": {
+        "name": "NeoPixel Strip 4",
+        "forward": 1.8,
+        "color": "#e53935",
+        "count": 4
+      }
+    },
+    {
+      "id": "SONAR1",
+      "type": "219295",
+      "x": 590,
+      "y": 340,
+      "angle": 0,
+      "props": {
+        "name": "Ultrasonic Distance Sensor (4-pin)",
+        "level": 0.5,
+        "distance": 100
+      }
+    },
+    {
+      "id": "CLOCK1",
+      "type": "display7SegmentI2C",
+      "x": 580,
+      "y": 520,
+      "angle": 0,
+      "props": {
+        "name": "7-Segment Clock Display",
+        "address": 112
+      }
+    }
+  ],
+  "wires": [
+    {
+      "id": "w_8b886415",
+      "from": {
+        "part": "LCD1",
+        "pin": "VDD"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "5V"
+      },
+      "points": [],
+      "color": "#e33c39",
+      "style": "normal"
+    },
+    {
+      "id": "w_b6957809",
+      "from": {
+        "part": "LCD1",
+        "pin": "VSS"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_e1c054cb",
+      "from": {
+        "part": "LCD2",
+        "pin": "VCC"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "5V"
+      },
+      "points": [],
+      "color": "#e33c39",
+      "style": "normal"
+    },
+    {
+      "id": "w_eb936e40",
+      "from": {
+        "part": "LCD2",
+        "pin": "GND"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_e9c9e531",
+      "from": {
+        "part": "SERVO1",
+        "pin": "VCC"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "5V"
+      },
+      "points": [],
+      "color": "#e33c39",
+      "style": "normal"
+    },
+    {
+      "id": "w_706a2dcc",
+      "from": {
+        "part": "SERVO1",
+        "pin": "GND"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_cfd577d9",
+      "from": {
+        "part": "PIXELS1",
+        "pin": "VCC"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "5V"
+      },
+      "points": [],
+      "color": "#e33c39",
+      "style": "normal"
+    },
+    {
+      "id": "w_f8eaee50",
+      "from": {
+        "part": "PIXELS1",
+        "pin": "GND"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_48188f13",
+      "from": {
+        "part": "SONAR1",
+        "pin": "VCC"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "5V"
+      },
+      "points": [],
+      "color": "#e33c39",
+      "style": "normal"
+    },
+    {
+      "id": "w_270c2359",
+      "from": {
+        "part": "SONAR1",
+        "pin": "GND"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_7037e338",
+      "from": {
+        "part": "CLOCK1",
+        "pin": "VCC"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "5V"
+      },
+      "points": [],
+      "color": "#e33c39",
+      "style": "normal"
+    },
+    {
+      "id": "w_f5f26352",
+      "from": {
+        "part": "CLOCK1",
+        "pin": "GND"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_58b9720e",
+      "from": {
+        "part": "LCD1",
+        "pin": "RS"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D12"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_4483459b",
+      "from": {
+        "part": "LCD1",
+        "pin": "E"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D11"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_40cf0f58",
+      "from": {
+        "part": "LCD1",
+        "pin": "RW"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "GND"
+      },
+      "points": [],
+      "color": "#222222",
+      "style": "normal"
+    },
+    {
+      "id": "w_3f14470e",
+      "from": {
+        "part": "LCD1",
+        "pin": "D4"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D5"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_43078c82",
+      "from": {
+        "part": "LCD1",
+        "pin": "D5"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D4"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_f766a81b",
+      "from": {
+        "part": "LCD1",
+        "pin": "D6"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D3"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_6a933e14",
+      "from": {
+        "part": "LCD1",
+        "pin": "D7"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D2"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_db59c43b",
+      "from": {
+        "part": "LCD2",
+        "pin": "SDA"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "SDA"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_dbc05b04",
+      "from": {
+        "part": "LCD2",
+        "pin": "SCL"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "SCL"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_1e31ea5f",
+      "from": {
+        "part": "CLOCK1",
+        "pin": "SDA"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "SDA"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_2f9bc83d",
+      "from": {
+        "part": "CLOCK1",
+        "pin": "SCL"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "SCL"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_8d62a5ed",
+      "from": {
+        "part": "SERVO1",
+        "pin": "SIG"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D9"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_1c2a599a",
+      "from": {
+        "part": "PIXELS1",
+        "pin": "DIN"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D6"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_2d332908",
+      "from": {
+        "part": "SONAR1",
+        "pin": "TRIG"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D7"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    },
+    {
+      "id": "w_19cc349c",
+      "from": {
+        "part": "SONAR1",
+        "pin": "ECHO"
+      },
+      "to": {
+        "part": "U1",
+        "pin": "D8"
+      },
+      "points": [],
+      "color": "#50b835",
+      "style": "normal"
+    }
+  ],
+  "notes": [
+    {
+      "id": "c_ac11ec50",
+      "x": 50,
+      "y": 520,
+      "text": "Ejemplo funcional: LCD paralelo e I2C, servo a 90°, cuatro NeoPixel, reloj I2C y ultrasonido a 100 cm. Abre Code y Start Simulation."
+    }
+  ],
+  "programs": {
+    "U1": {
+      "source": "#include <Servo.h>\n#include <LiquidCrystal.h>\n#include <Adafruit_NeoPixel.h>\n#include <Wire.h>\nServo servo;\nLiquidCrystal lcd(12,11,5,4,3,2);\nAdafruit_NeoPixel strip(4,6,NEO_GRB+NEO_KHZ800);\nvoid backpack(byte value) { Wire.beginTransmission(0x27); Wire.write(value); Wire.endTransmission(); }\nvoid nibble(byte value, bool rs=false) { backpack(value|8|(rs?1:0)|4); delayMicroseconds(2); backpack(value|8|(rs?1:0)); delayMicroseconds(50); }\nvoid lcdByte(byte value, bool rs=false) { nibble(value&0xf0,rs); nibble((value<<4)&0xf0,rs); }\nvoid setup() {\n  Serial.begin(9600); Wire.begin();\n  lcd.begin(16,2); lcd.print(\"Hola circuitos\"); lcd.setCursor(0,1); lcd.print(\"Arduino local\");\n  delay(50); nibble(0x30); delay(5); nibble(0x30); delay(5); nibble(0x30); nibble(0x20);\n  lcdByte(0x28); lcdByte(0x0c); lcdByte(1); delay(2);\n  const char* text=\"LCD por I2C\"; while(*text) lcdByte(*text++,true);\n  Wire.beginTransmission(0x70); Wire.write(0x21); Wire.endTransmission();\n  Wire.beginTransmission(0x70); Wire.write(0x81); Wire.endTransmission();\n  Wire.beginTransmission(0x70); Wire.write(0); byte digits[]={0x06,0,0x5b,0,2,0,0x4f,0,0x66,0}; for(byte n:digits) Wire.write(n); Wire.endTransmission();\n  servo.attach(9); servo.write(90); strip.begin();\n  strip.setPixelColor(0,strip.Color(255,0,0)); strip.setPixelColor(1,strip.Color(0,255,0));\n  strip.setPixelColor(2,strip.Color(0,0,255)); strip.setPixelColor(3,strip.Color(255,180,0)); strip.show();\n  pinMode(7,OUTPUT); pinMode(8,INPUT);\n}\nvoid loop() {\n  digitalWrite(7,LOW); delayMicroseconds(2); digitalWrite(7,HIGH); delayMicroseconds(10); digitalWrite(7,LOW);\n  unsigned long echo=pulseIn(8,HIGH,30000); Serial.print(\"cm=\"); Serial.println(echo/58); delay(100);\n}",
+      "mode": "Text"
+    }
+  }
+}
