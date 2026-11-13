@@ -8,7 +8,7 @@ con **OpenCircuits Web** incluido en `opencircuits/`. Es un sitio estático: no 
 | `index.html`, `app.js`, `sala.js`, `datos.js`, `estilos.css`, `assets/` | La plataforma. Los textos, videos y circuitos se editan en `datos.js`. |
 | `opencircuits/` | OpenCircuits Web ya construido (modo Bootcamp), con los Circuitos Maker precompilados para simular sin servidor. |
 | `vercel.json` | Configuración de Vercel: sitio estático, encabezados de seguridad y caché. |
-| `.github/workflows/vercel.yml` | CI/CD: verifica el sitio y lo publica en Vercel en cada cambio. |
+| `.github/workflows/vercel.yml` | CI: verifica el sitio en cada cambio (la publicación la hace Vercel). |
 | `scripts/verificar.mjs` | La verificación: archivos, sintaxis, imágenes y programas precompilados. |
 
 ## 1. Subir a GitHub
@@ -24,40 +24,22 @@ git remote add origin https://github.com/<usuario>/bootcamp-web.git
 git push -u origin main
 ```
 
-Al subirlo, GitHub Actions corre la verificación. Mientras falten los secretos de Vercel, verifica pero no publica.
+Al subirlo, GitHub Actions corre la verificación del sitio.
 
 ## 2. Conectar con Vercel (una sola vez)
 
-1. Instalen la CLI y vinculen la carpeta a un proyecto nuevo de Vercel:
+1. En https://vercel.com → **Add New… → Project** → importen el repositorio de GitHub.
+2. Configuración: **Framework Preset: Other**, sin comando de build y con la carpeta raíz del repositorio. **Deploy**.
 
-```powershell
-npm install --global vercel
-vercel login
-vercel link          # «Set up and deploy?» → sí · nombre del proyecto · sin framework ni comando de build
-```
-
-   Esto crea `.vercel/project.json` (no se sube al repositorio) con dos datos: `orgId` y `projectId`.
-2. Creen un token en https://vercel.com/account/tokens.
-3. En GitHub: **Settings → Secrets and variables → Actions → New repository secret**, y agreguen:
-
-| Secreto | Valor |
-|---|---|
-| `VERCEL_TOKEN` | el token del paso 2 |
-| `VERCEL_ORG_ID` | `orgId` de `.vercel/project.json` |
-| `VERCEL_PROJECT_ID` | `projectId` de `.vercel/project.json` |
-
-4. En GitHub, **Actions → Verificar y publicar en Vercel → Run workflow** para la primera publicación.
+Desde ahí, Vercel publica solo en cada subida a GitHub.
 
 ## 3. Cómo funciona el CI/CD
 
 | Evento | Qué pasa |
 |---|---|
-| Push a `main` | Verificación → publicación en **producción**. |
-| Pull request | Verificación → publicación de **vista previa** con su propio enlace. |
-| Falla la verificación | No se publica nada y el error aparece en la pestaña Actions. |
-
-`vercel.json` desactiva las publicaciones automáticas propias de Vercel (`git.deploymentEnabled: false`) para que no se
-publique dos veces: el único que publica es GitHub Actions, y solo si la verificación pasa.
+| Push a `main` | GitHub Actions verifica el sitio · Vercel publica en **producción**. |
+| Otra rama o pull request | GitHub Actions verifica · Vercel publica una **vista previa** con su propio enlace. |
+| Falla la verificación | Aparece en rojo en la pestaña Actions (y en el pull request): revisen el error antes de seguir. |
 
 ## App de escritorio de OpenCircuits
 
