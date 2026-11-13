@@ -52,7 +52,7 @@ function vistaEquipos(padre = null) {
   $("#vista").innerHTML = `
     <section class="portada">
       <img class="base-graf" src="assets/grafismo.svg" alt="">
-      <header class="portada-marca"><img class="portada-logo" src="assets/logo-pionero-blanco.webp" alt="Bootcamp Pionero"><img class="portada-aa" src="assets/anglo-blanco.webp" alt="Anglo American"></header>
+      <header class="portada-marca"><img class="portada-aa" src="assets/anglo-blanco.webp" alt="Anglo American"><img class="portada-logo" src="assets/logo-pionero-blanco.webp" alt="Bootcamp Pionero"></header>
       ${p ? `<a class="portada-volver" href="#equipos">${ico("back")}Volver a las estaciones</a>` : ""}
       <div class="estaciones n${lista.length}">${lista.map(t => { const s = t.estacion || {};
         const enlaces = (t.enlaces || []).map(x => x.ruta ? `<a class="est-enlace" href="#${esc(x.ruta)}">${ico(x.icono || "next")}${esc(x.t)}</a>`
@@ -80,7 +80,7 @@ function vistaEquipos(padre = null) {
 
 // ---------- Circuitos Maker: 3 circuitos de ejemplo de OpenCircuits, de menos a más complejo, con el diseño de la portada ----------
 const marcaPortada = `<img class="base-graf" src="assets/grafismo.svg" alt="">
-      <header class="portada-marca"><img class="portada-logo" src="assets/logo-pionero-blanco.webp" alt="Bootcamp Pionero"><img class="portada-aa" src="assets/anglo-blanco.webp" alt="Anglo American"></header>`;
+      <header class="portada-marca"><img class="portada-aa" src="assets/anglo-blanco.webp" alt="Anglo American"><img class="portada-logo" src="assets/logo-pionero-blanco.webp" alt="Bootcamp Pionero"></header>`;
 function vistaMaker(id) {
   const M = D.circuitosMaker, c = M.circuitos.find(x => x.id === id);
   if (id && !c) { history.replaceState(null, "", "#maker"); return vistaMaker(); }

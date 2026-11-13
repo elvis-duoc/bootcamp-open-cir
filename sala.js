@@ -134,7 +134,7 @@ function abrirMision(i) {
   // Título: «Tecnología - frase de la estación» (los mismos textos de su tarjeta en la portada). Las estaciones dentro de otra usan el nombre de la principal.
   const lista = misionesDe(m.tec), padre = tecDe(tec.padre), nombreTec = (padre || tec).estacion?.titulo || (padre || tec).corto;
   $("#s-titulo").textContent = tec.estacion?.frase ? `${nombreTec} - ${tec.estacion.frase}` : (lista.length === 1 ? `${nombreTec} · ${m.nombre}` : `${tec.corto} · Misión ${lista.indexOf(i) + 1} · ${m.nombre}`);
-  $("#cierre").hidden = true; $("#ctrl").hidden = false; $("#vid").hidden = false;
+  $("#cierre").hidden = true; $("#b-otravez").hidden = true; $("#ctrl").hidden = false; $("#vid").hidden = false;
   $("#demo-t").textContent = m.nombre;
   P.seek(desde); P.play();
   pintarSala();
@@ -159,7 +159,7 @@ function pintarSala() {
   if (!S) return;
   const t = P.time(), on = P.playing();
   $("#b-play").innerHTML = ico(on ? "pause" : "play");
-  $("#bigplay").hidden = on;
+  $("#bigplay").hidden = on || S.terminada;
   $("#l-fill").style.width = `${Math.max(0, Math.min(1, (t - S.ini) / (S.fin - S.ini))) * 100}%`;
   const rel = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
   $("#tiempo").textContent = `${rel(Math.max(0, t - S.ini))} / ${rel(S.fin - S.ini)}`;
@@ -178,16 +178,17 @@ function tick() {
 setInterval(tick, 120);
 
 // ---------- Controles ----------
-function alternar() { if (!S) return; P.playing() ? P.pause() : P.play(); pintarSala(); }
+function alternar() { if (!S) return; if (S.terminada) return verOtraVez(); P.playing() ? P.pause() : P.play(); pintarSala(); }
 function saltar(t) {
   if (!S) return;
-  const st = estadoMision(equipo(), S.i), tope = st.hecha ? S.fin : Math.max(st.t || S.ini, P.time()); // La primera vez no se puede adelantar más allá de lo visto
-  P.seek(Math.max(S.ini, Math.min(t, tope))); pintarSala();
+  if (S.terminada) { S.terminada = false; $("#b-otravez").hidden = true; }
+  P.seek(Math.max(S.ini, Math.min(t, S.fin))); pintarSala(); // Se puede adelantar y retroceder libremente
 }
 $("#b-play").addEventListener("click", alternar);
 $("#bigplay").addEventListener("click", alternar);
 $("#capa-clic").addEventListener("click", alternar);
 $("#b-back").addEventListener("click", () => S && saltar(P.time() - 10));
+$("#b-fwd").addEventListener("click", () => S && saltar(P.time() + 10));
 $("#linea").addEventListener("click", e => { const r = e.currentTarget.getBoundingClientRect(); if (S) saltar(S.ini + (e.clientX - r.left) / r.width * (S.fin - S.ini)); });
 $("#s-salir").addEventListener("click", volverARuta);
 function pantallaCompleta() { document.fullscreenElement ? document.exitFullscreen().catch(() => {}) : $("#sala").requestFullscreen?.().catch(() => {}); }
@@ -203,22 +204,16 @@ addEventListener("keydown", e => {
 
 // ---------- Cierre de la misión ----------
 function terminarMision() {
+  // Al terminar, el video queda en pantalla con un botón para verlo otra vez, sin salir del reproductor
   P.pause(); S.terminada = true;
-  const eq = equipo(), st = estadoMision(eq, S.i), n = S.i, m = S.m, lista = misionesDe(m.tec), k = lista.indexOf(n), sig = lista[k + 1];
+  const st = estadoMision(equipo(), S.i);
   st.hecha = true; st.t = 0; guardar();
-  const el = $("#cierre"); el.hidden = false; $("#ctrl").hidden = true; $("#vid").hidden = true;
-  el.innerHTML = `<div class="cierre-in">
-      <p class="kicker">Misión ${k + 1} de ${lista.length}</p><h2>${esc(m.nombre)} lista</h2>
-      <p class="cierre-tip">Para recordar. Toquen las cartas.</p>
-      <div class="cartas">${m.cartas.map(c => cartaHTML(c, m.icono)).join("")}</div>
-      <div class="cierre-b">
-        <button class="btn ghost" id="p-otra">${ico("redo")}Repetir</button>
-        ${sig !== undefined ? `<button class="btn" id="p-sig">Siguiente misión ${ico("next")}</button>` : ""}
-        <button class="btn ghost" id="p-ruta">${ico("back")}Volver a las estaciones</button>
-      </div></div>`;
-  activarCartas(el);
-  $("#p-otra").addEventListener("click", () => abrirMision(n));
-  $("#p-ruta").addEventListener("click", volverARuta);
-  $("#p-sig")?.addEventListener("click", () => abrirMision(sig));
+  $("#b-otravez").hidden = false;
   pintarSala();
 }
+function verOtraVez() {
+  if (!S) return;
+  S.terminada = false; $("#b-otravez").hidden = true;
+  P.seek(S.ini); P.play(); pintarSala();
+}
+$("#b-otravez").addEventListener("click", verOtraVez);

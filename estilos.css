@@ -28,6 +28,7 @@ svg.i { width: 1.2em; height: 1.2em; flex: none; fill: none; stroke: currentColo
 .circ { width: 42px; height: 42px; flex: none; display: grid; place-items: center; border: 0; border-radius: 50%; background: rgba(255,255,255,.16); color: #fff; font-size: 17px; cursor: pointer; }
 .circ:hover:not(:disabled) { background: rgba(255,255,255,.3); }
 .circ:disabled { opacity: .35; cursor: default; }
+#b-fwd .i { transform: scaleX(-1); } /* Mismo ícono que «Volver 10 segundos», en espejo */
 .circ.claro { background: var(--lav); color: var(--indigo); }
 .circ.claro:hover { background: var(--mal-bg); color: var(--mal); }
 .chip-btn { display: inline-flex; align-items: center; gap: 8px; height: 42px; padding: 0 16px; border: 0; border-radius: 21px; background: rgba(255,255,255,.16); color: #fff; font-weight: 600; font-size: 14px; cursor: pointer; white-space: nowrap; }
@@ -149,6 +150,9 @@ svg.i { width: 1.2em; height: 1.2em; flex: none; fill: none; stroke: currentColo
 .cierre .btn:not(.ghost):hover { background: var(--lav); }
 .cierre .btn.ghost { background: transparent; color: #fff; }
 .cierre .btn.ghost:hover { background: rgba(255,255,255,.16); border-color: #fff; }
+.otravez { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: .55em; padding: .8em 1.5em; border: 0; border-radius: 2em; background: var(--cyan-f); color: #fff; font: inherit; font-weight: 700; font-size: max(18px, 1.8vmin); cursor: pointer; box-shadow: 0 8px 26px rgba(0,0,0,.4); }
+.otravez:hover { filter: brightness(1.1); }
+.otravez[hidden] { display: none; }
 @media (max-width: 620px) { .cierre .cartas { grid-template-columns: 1fr 1fr; } }
 
 /* Registro */
@@ -291,8 +295,8 @@ body.en-portada #barra { display: none; }
 .portada { --gut-p: max(16px, 3vw); position: relative; overflow: hidden; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; gap: max(10px, 2.4dvh); padding: max(14px, 3.4dvh) var(--gut-p) max(16px, 4dvh); background: var(--indigo); color: #fff; font-family: "AA Smart Sans", "Outfit", "Segoe UI", sans-serif; }
 .portada .base-graf { width: min(48vw, 62dvh); opacity: .5; pointer-events: none; }
 .portada-marca { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.portada-logo { width: max(110px, min(15vw, 26dvh)); max-height: 13dvh; object-fit: contain; object-position: left; height: auto; }
-.portada-aa { width: max(110px, min(13vw, 22dvh)); max-height: 9dvh; object-fit: contain; object-position: right; height: auto; }
+.portada-logo { width: max(110px, min(15vw, 26dvh)); max-height: 13dvh; object-fit: contain; object-position: right; height: auto; }
+.portada-aa { width: max(110px, min(13vw, 22dvh)); max-height: 9dvh; object-fit: contain; object-position: left; height: auto; }
 .portada-volver { position: relative; z-index: 1; align-self: flex-start; display: inline-flex; align-items: center; gap: .5em; padding: .6em 1.1em; border-radius: 2em; background: rgb(255 255 255 / .14); color: #fff; font-weight: 600; font-size: max(14px, min(1.1vw, 1.7dvh)); text-decoration: none; }
 .portada-volver:hover { background: rgb(255 255 255 / .26); }
 
